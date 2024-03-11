@@ -11,7 +11,11 @@ import { classes } from './Formulario'
 import { Picker } from '@react-native-picker/picker'
 
 const Formulario = (props: any) => {
-  const { busqueda, setBusqueda } = props
+  const {
+    busqueda,
+    setBusqueda,
+    setConsultar
+  } = props
   const { pais, ciudad } = busqueda
 
   const [animacionBoton] = useState(new Animated.Value(1))
@@ -41,6 +45,9 @@ const Formulario = (props: any) => {
       mostrarAlerta()
       return
     }
+
+    //  Consultar API
+    setConsultar(true)
   }
 
   const mostrarAlerta = () => {
