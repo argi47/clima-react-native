@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { classes } from './AppClasses'
 import Formulario from './src/components/Formulario/Formulario.tsx'
+import Clima from './src/components/Clima/Clima.tsx'
 
 const App = () => {
 
@@ -15,16 +16,23 @@ const App = () => {
     pais: ''
   })
   const [consultar, setConsultar] = useState(false)
-  const [resultado, setResultado] = useState({})
+  const [resultado, setResultado] = useState<any>({})
+  const [bgcolor, setBgcolor] = useState('rgb(71, 149, 212)')
 
   const { ciudad, pais } = busqueda
+
+  const bgcolorApp = {
+    backgroundColor: bgcolor
+  }
 
   const mostrarAlerta = () => {
     Alert.alert(
       'Error',
-      'Ha ocurrido un error. Inténtalo de nuevo o prueba con otra ciudad y/o país',
+      'Ha ocurrido un error. Inténtalo de nuevo o prueba con otra ciudad y/o país. Asegúrate también de que la ciudad introducida pertenezca al país seleccionado.',
       [{ text: 'OK' }]
     )
+
+    setResultado({})
   }
 
   useEffect(() => {
@@ -37,13 +45,29 @@ const App = () => {
           const respuesta = await fetch(url)
           const resultado = await respuesta.json()
 
-          if (resultado.cod !== '200') {
-            mostrarAlerta()
-            return
-          }
-
-          setResultado(resultado)
           console.log('resultado: ', resultado)
+
+          if (resultado.cod != '200') {
+            mostrarAlerta()
+          }
+          else {
+            setResultado(resultado)
+
+            // Modifica los colores de fondo según la temperatura
+            const kelvin = 273.15
+            const { main } = resultado
+            const tempActual = main.temp - kelvin
+
+            if (tempActual < 10) {
+              setBgcolor('rgb(105, 108, 149)')
+            }
+            else if (tempActual >= 10 && tempActual < 25) {
+              setBgcolor('rgb(71, 149, 212)')
+            }
+            else {
+              setBgcolor('rgb(178, 28, 61)')
+            }
+          }
         }
         catch (error) {
           mostrarAlerta()
@@ -61,12 +85,19 @@ const App = () => {
       <TouchableWithoutFeedback
         onPress={() => Keyboard.dismiss()}
       >
-        <View style={classes.app}>
+        <View style={[classes.app, bgcolorApp]}>
           <View style={classes.contenido}>
+            {resultado.name &&
+              <Clima
+                resultado={resultado}
+              />
+            }
+
             <Formulario
               busqueda={busqueda}
               setBusqueda={setBusqueda}
               setConsultar={setConsultar}
+              setResultado={setResultado}
             />
           </View>
         </View>

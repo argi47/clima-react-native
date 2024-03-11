@@ -7,7 +7,8 @@ export const classes = StyleSheet.create({
     backgroundColor: '#FFF',
     fontSize: 20,
     marginBottom: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    borderRadius: 10
   },
   picker: {
     height: 120,
@@ -18,7 +19,9 @@ export const classes = StyleSheet.create({
     backgroundColor: '#000',
     padding: 10,
     justifyContent: 'center',
-    borderRadius: 100
+    borderRadius: 100,
+    width: '80%',
+    marginHorizontal: '10%'
   },
   textoBuscar: {
     color: '#FFF',

@@ -14,7 +14,8 @@ const Formulario = (props: any) => {
   const {
     busqueda,
     setBusqueda,
-    setConsultar
+    setConsultar,
+    setResultado
   } = props
   const { pais, ciudad } = busqueda
 
@@ -56,6 +57,8 @@ const Formulario = (props: any) => {
       'Agrega una ciudad y un país para la búsqueda',
       [{ text: 'Entendido' }]
     )
+
+    setResultado({})
   }
 
   return (
@@ -66,7 +69,7 @@ const Formulario = (props: any) => {
             value={ciudad}
             onChangeText={(ciudad) => setBusqueda({ ...busqueda, ciudad })}
             style={classes.input}
-            placeholder='Ciudad'
+            placeholder='Ciudad. Ej: Barcelona'
             placeholderTextColor='#666'
           />
         </View>
