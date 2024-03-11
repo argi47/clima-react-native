@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   TouchableWithoutFeedback,
@@ -8,6 +8,10 @@ import { classes } from './AppClasses'
 import Formulario from './src/components/Formulario/Formulario.tsx'
 
 const App = () => {
+  const [busqueda, setBusqueda] = useState({
+    ciudad: '',
+    pais: ''
+  })
 
   return (
     <>
@@ -16,7 +20,10 @@ const App = () => {
       >
         <View style={classes.app}>
           <View style={classes.contenido}>
-            <Formulario />
+            <Formulario
+              busqueda={busqueda}
+              setBusqueda={setBusqueda}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>

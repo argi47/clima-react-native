@@ -17,7 +17,8 @@ export const classes = StyleSheet.create({
     marginTop: 50,
     backgroundColor: '#000',
     padding: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 100
   },
   textoBuscar: {
     color: '#FFF',
