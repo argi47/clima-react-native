@@ -45,8 +45,6 @@ const App = () => {
           const respuesta = await fetch(url)
           const resultado = await respuesta.json()
 
-          console.log('resultado: ', resultado)
-
           if (resultado.cod != '200') {
             mostrarAlerta()
           }
